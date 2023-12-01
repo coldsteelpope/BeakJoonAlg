@@ -42,6 +42,12 @@ int main(void)
 	{
 		int currentValue = arr[i];
 		int dpIdx = BinarySearchLowerBound(0, dpLen, currentValue);
+		
+		// 나는 dpIdx를 구한 후에 currentValue와 dp[dpIdx]를 비교했다.
+		
+		// 하지만, 풀이 과정에서는 dp에서 가장 마지막 수랑 currentValue를 비교한 후에
+		// 만약 가장 마지막 수보다 currentValue가 더 작을 때, Binary Search를 사용했다.
+		// 이러한 방식을 사용하면 불필요한 Binary Search를 사용하지 않기 때문에 더 효과적이다.
 		if (dp[dpIdx] < currentValue)
 		{
 			dp[dpLen++] = currentValue;
