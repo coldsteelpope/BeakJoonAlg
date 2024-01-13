@@ -1,41 +1,39 @@
 #include <iostream>
 #include <string>
+#include <map>
+#include <utility>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
+map<string, int> trees;
+vector<pair<string, double>> ratios;
+
 int main(void)
 {
-	string str;
-	cin >> str;
-
-	int startPointer = 0;
-	int endPointer = str.length() - 1;
-
-	while (startPointer < endPointer)
+	int totalNum = 0;
+	string tree;
+	while (getline(cin, tree))
 	{
-		int leftPointer = startPointer;
-		int rightPointer = endPointer;
-
-		bool isPalin = true;
-
-		while (leftPointer < rightPointer)
-		{
-			if (str[leftPointer] != str[rightPointer])
-			{
-				isPalin = false;
-				break;
-			}
-			++leftPointer;
-			--rightPointer;
-		}
-		
-		if (isPalin == true)
-		{
-			break;
-		}
-		++startPointer;
+		++trees[tree];
+		++totalNum;
 	}
 
-	cout << str.length() + startPointer << "\n";
+	for (auto it = trees.begin(); it != trees.end(); ++it)
+	{
+		double ratio = (it->second / (double)totalNum) * 100;
+		ratios.push_back(make_pair(it->first, ratio));
+	}
+	
+	std::sort(ratios.begin(), ratios.end());
+
+	for (int i = 0; i < ratios.size(); ++i)
+	{
+		cout << fixed;
+		cout.precision(4);
+		cout << ratios[i].first << " " << ratios[i].second << "\n";
+	}
+
 	return 0;
 }
